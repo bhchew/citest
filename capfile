@@ -87,4 +87,4 @@ load 'deploy'
 # CUSTOM RECIPES
 # ================================================================
 
-  after "symlinking:symlink_settings", "deploy:cleanup"
+  after "deploy", "deploy:cleanup"
