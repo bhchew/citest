@@ -5,7 +5,7 @@ load 'deploy'
 # ================================================================
 
 
-    role :app, "some-server:1111"
+    role :app, "localhost:22"
   
 
 # ================================================================
@@ -19,11 +19,11 @@ load 'deploy'
 
   set :application, "some_project"
 
-  set :deploy_to, "/var/www/html"
+  set :deploy_to, "/tmp/"
 
   set :deploy_via, :remote_cache
 
-  set :files_dir, "/var/www/html/shared"
+  #set :files_dir, "/var/www/html/shared"
 
   set :password, "some-password"
 
@@ -45,7 +45,7 @@ load 'deploy'
 
   set :user, "git"
 
-  set :branch, "work"
+  set :branch, "master"
 
   #set(:branch) do
   #  Capistrano::CLI.ui.ask "Please enter 'branch': "
@@ -86,18 +86,5 @@ load 'deploy'
 # ================================================================
 # CUSTOM RECIPES
 # ================================================================
-
-
-  after "deploy", "symlinking:symlink_settings"
-
-namespace :symlinking do
-    desc "Symlink configurations etc settings.php robotx.txt"
-    task :symlink_settings do
-      run "ln -s #{deploy_to}/current/config/#{site_env}/settings.php #{deploy_to}/current/www/sites/default/settings.php"
-      run "ln -s #{deploy_to}/current/config/#{site_env}/robots.txt #{deploy_to}/current/www/robots.txt"
-      run "ln -s #{deploy_to}/current/config/#{site_env}/.htaccess #{deploy_to}/current/www/.htaccess"
-      run "ln -s #{files_dir}/files #{deploy_to}/current/www/sites/default/files"
-    end
-end
 
   after "symlinking:symlink_settings", "deploy:cleanup"
