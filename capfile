@@ -21,7 +21,7 @@ load 'deploy'
 
   set :deploy_to, "/tmp/"
 
-  set :deploy_via, :remote_cache
+  set :deploy_via, :copy
 
   #set :files_dir, "/var/www/html/shared"
 
@@ -31,7 +31,7 @@ load 'deploy'
 
   set :runner, "user to run as with sudo"
 
-  set :scm, "git"
+  set :scm, "none"
 
   set :scm_password, "some-password"
 
