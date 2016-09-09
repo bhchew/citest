@@ -4,11 +4,9 @@ load 'deploy'
 # ROLES
 # ================================================================
 
-    set :stage, :production
-    role :app, "prod"
+
+    role :app, "elb-non-common-ports-678388158.ap-southeast-1.elb.amazonaws.com:2275"
   
-    set :stage, :test
-    role :app, "test"
 
 # ================================================================
 # VARIABLES
