@@ -4,9 +4,11 @@ load 'deploy'
 # ROLES
 # ================================================================
 
-
-    role :app, "elb-non-common-ports-678388158.ap-southeast-1.elb.amazonaws.com:2275"
+    set :stage, :production
+    role :app, "prod"
   
+    set :stage, :test
+    role :app, "test"
 
 # ================================================================
 # VARIABLES
@@ -20,7 +22,7 @@ load 'deploy'
   set :application, "some_project"
 
   set :deploy_to, "/tmp/"
-
+zzzzz
   set :deploy_via, :copy
 
   #set :files_dir, "/var/www/html/shared"
