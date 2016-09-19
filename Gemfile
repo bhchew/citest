@@ -1,9 +1,5 @@
-source 'https://rubygems.org'
+source "http://rubygems.org"
 
-gem 'capistrano', '~> 3.6'
-
-# rails specific capistrano funcitons
-gem 'capistrano-rails', '~> 1.1.0'
-
-# integrate bundler with capistrano
-gem 'capistrano-bundler'
+gem "rails", "2.3.11"
+gem "rake", '0.8.7'
+gem "capistrano", "2.6.0"
