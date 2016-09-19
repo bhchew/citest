@@ -4,23 +4,22 @@ load 'deploy'
 # ROLES
 # ================================================================
 
-
+task :staging do
     role :app, "elb-non-common-ports-678388158.ap-southeast-1.elb.amazonaws.com:2275"
-  
+end  
+
+task :production do
+    role :app, "abcd"
+end  
 
 # ================================================================
 # VARIABLES
 # ================================================================
 
-# Webistrano defaults
-  set :webistrano_project, "some_project"
-  set :webistrano_stage, "dev"
-
-
   set :application, "some_project"
 
   set :deploy_to, "/tmp/"
-zzzzz
+
   set :deploy_via, :copy
 
   #set :files_dir, "/var/www/html/shared"
