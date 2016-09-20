@@ -4,19 +4,19 @@ load 'deploy'
 # ROLES
 # ================================================================
 
-  task :staging do
-      role :app, "elb-non-common-ports-678388158.ap-southeast-1.elb.amazonaws.com:2275"
-  end  
+task :staging do
+    role :app, "elb-non-common-ports-678388158.ap-southeast-1.elb.amazonaws.com:2275"
+end  
 
-  task :production do
-      role :app, "abcd"
-  end  
+task :production do
+    role :app, "abcd"
+end  
 
 # ================================================================
 # VARIABLES
 # ================================================================
 
-  set :application, "test_project"
+  set :application, "some_project"
 
   set :deploy_to, "/tmp/test"
 
@@ -24,23 +24,23 @@ load 'deploy'
 
   #set :files_dir, "/var/www/html/shared"
 
-  #set :password, "some-password"
+  set :password, "some-password"
 
   set :repository, "."
 
-  #set :runner, "user to run as with sudo"
+  set :runner, "user to run as with sudo"
 
   set :scm, "none"
 
-  #set :scm_password, "some-password"
+  set :scm_password, "some-password"
 
-  #set :scm_username, "deployer"
+  set :scm_username, "deployer"
 
-  #set :site_env, "DEV"
+  set :site_env, "DEV"
 
-  #set :site_name, "some_project"
+  set :site_name, "some_project"
 
-  #set :use_sudo, false
+  set :use_sudo, false
 
   set :user, "deployer"
 
@@ -54,32 +54,32 @@ load 'deploy'
 # TEMPLATE TASKS
 # ================================================================
 
-  # allocate a pty by default as some systems have problems without
-  default_run_options[:pty] = true
+        # allocate a pty by default as some systems have problems without
+        default_run_options[:pty] = true
+      
+        # set Net::SSH ssh options through normal variables
+        # at the moment only one SSH key is supported as arrays are not
+        # parsed correctly by Webistrano::Deployer.type_cast (they end up as strings)
+        [:ssh_port, :ssh_keys].each do |ssh_opt|
+          if exists? ssh_opt
+            logger.important("SSH options: setting #{ssh_opt} to: #{fetch(ssh_opt)}")
+            ssh_options[ssh_opt.to_s.gsub(/ssh_/, '').to_sym] = fetch(ssh_opt)
+          end
+        end
+      
+         namespace :deploy do
+           task :restart, :roles => :app, :except => { :no_release => true } do
+             # do nothing
+           end
 
-  # set Net::SSH ssh options through normal variables
-  # at the moment only one SSH key is supported as arrays are not
-  # parsed correctly by Webistrano::Deployer.type_cast (they end up as strings)
-  [:ssh_port, :ssh_keys].each do |ssh_opt|
-    if exists? ssh_opt
-      logger.important("SSH options: setting #{ssh_opt} to: #{fetch(ssh_opt)}")
-      ssh_options[ssh_opt.to_s.gsub(/ssh_/, '').to_sym] = fetch(ssh_opt)
-    end
-  end
+           task :start, :roles => :app, :except => { :no_release => true } do
+             # do nothing
+           end
 
-  namespace :deploy do
-   task :restart, :roles => :app, :except => { :no_release => true } do
-     # do nothing
-   end
-
-   task :start, :roles => :app, :except => { :no_release => true } do
-     # do nothing
-   end
-
-   task :stop, :roles => :app, :except => { :no_release => true } do
-     # do nothing
-   end
-  end
+           task :stop, :roles => :app, :except => { :no_release => true } do
+             # do nothing
+           end
+         end
 
 
 # ================================================================
