@@ -9,46 +9,27 @@ load 'deploy'
   end  
 
   task :production do
-      role :app, "abcd"
+      role :app, "replace-with-production-host-each-line"
   end  
 
 # ================================================================
 # VARIABLES
 # ================================================================
 
-  set :application, "test_project"
+  set :application, "stshop"
 
   set :deploy_to, "/tmp/test"
 
-  set :deploy_via, :copy
-
-  #set :files_dir, "/var/www/html/shared"
-
-  #set :password, "some-password"
+  set :deploy_via, :remote_cache
+  set :copy_exclude, [ '.git' ]
 
   set :repository, "."
 
-  #set :runner, "user to run as with sudo"
-
   set :scm, "none"
-
-  #set :scm_password, "some-password"
-
-  #set :scm_username, "deployer"
-
-  #set :site_env, "DEV"
-
-  #set :site_name, "some_project"
-
-  #set :use_sudo, false
 
   set :user, "deployer"
 
   set :branch, "master"
-
-  #set(:branch) do
-  #  Capistrano::CLI.ui.ask "Please enter 'branch': "
-  #end
 
 # ================================================================
 # TEMPLATE TASKS
