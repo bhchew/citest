@@ -20,7 +20,7 @@ load 'deploy'
 
   set :deploy_to, "/tmp/test"
 
-  set :deploy_via, :remote_cache
+  set :deploy_via, :copy
   set :copy_exclude, [ '.git' ]
 
   set :repository, "."
